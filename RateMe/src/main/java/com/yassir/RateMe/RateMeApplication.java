@@ -8,7 +8,7 @@ public class RateMeApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RateMeApplication.class, args);
-		System.out.println("hello rate Me");
+		System.out.println("hello yassir");
 	}
 
 
