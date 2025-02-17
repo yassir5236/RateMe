@@ -40,8 +40,7 @@ public class User {
     private String profilePicture;
     private String bio;
 
+    private String role="ADMIN";
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
 }

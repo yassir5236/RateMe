@@ -2,6 +2,7 @@ package com.yassir.RateMe.Service;
 
 
 
+import com.yassir.RateMe.Dto.UserRequestDto;
 import com.yassir.RateMe.Exception.UsernameAlreadyExistsException;
 import com.yassir.RateMe.Model.Entity.User;
 import com.yassir.RateMe.Repository.UserRepository;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,12 +28,14 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
+    private final FileUploader fileUploader;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager , JwtTokenProvider jwtTokenProvider) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager , JwtTokenProvider jwtTokenProvider, FileUploader fileUploader) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.fileUploader = fileUploader;
     }
 
     public User registerUser(User user) {
@@ -83,4 +87,21 @@ public class UserService {
         }
         return "Fails";
     }
+
+
+    public User updateUserProfile(String username, String location, String bio, MultipartFile profilePicture) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé !"));
+
+        user.setLocation(location);
+        user.setBio(bio);
+
+        if (profilePicture != null && !profilePicture.isEmpty()) {
+            String imageUrl = fileUploader.upload(profilePicture);
+            user.setProfilePicture(imageUrl);
+        }
+
+        return userRepository.save(user);
+    }
+
 }
