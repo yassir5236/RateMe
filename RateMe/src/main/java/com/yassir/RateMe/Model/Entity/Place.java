@@ -19,16 +19,21 @@ import java.util.List;
 public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String name;
     private String description;
-    private String category;
+
     private String photo;
     private String address;
     private Double latitude;
     private Double longitude;
     private Double averageRating;
+
+    @ManyToOne
+    @JoinColumn(name = "Category_id")
+    private Category category;
+
 
 //    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
 //    private List<Review> reviews = new ArrayList<>();
