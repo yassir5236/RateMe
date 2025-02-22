@@ -1,6 +1,8 @@
 package com.yassir.RateMe.Dto.Place;
 
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -9,7 +11,7 @@ public record EmbeddedPlaceDTO(
 
          String name,
          String description,
-         String photo,
+         List<String> photos,
          String address,
          Double latitude,
          Double longitude,

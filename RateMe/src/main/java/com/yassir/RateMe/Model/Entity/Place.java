@@ -24,7 +24,6 @@ public class Place {
     private String name;
     private String description;
 
-    private String photo;
     private String address;
     private Double latitude;
     private Double longitude;
@@ -34,9 +33,16 @@ public class Place {
     @JoinColumn(name = "Category_id")
     private Category category;
 
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+    List<Image> images = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
-//    private List<Review> reviews = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+    private List<Review> reviews = new ArrayList<>();
 
 
 //    @OneToMany(mappedBy = "", cascade = CascadeType.ALL)

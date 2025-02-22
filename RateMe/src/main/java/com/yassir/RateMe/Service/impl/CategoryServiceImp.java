@@ -23,67 +23,67 @@ import java.util.stream.Collectors;
 public class CategoryServiceImp implements ICategoryService {
 
 
-    private final CategoryRepository farmRepository;
-    private final ICategoryMapper farmMapper;
+    private final CategoryRepository categoryRepository;
+    private final ICategoryMapper categoryMapper;
 
 
     @Autowired
-    public CategoryServiceImp(CategoryRepository farmRepository, ICategoryMapper farmMapper) {
-        this.farmRepository = farmRepository;
-        this.farmMapper = farmMapper;
+    public CategoryServiceImp(CategoryRepository categoryRepository, ICategoryMapper categoryMapper) {
+        this.categoryRepository = categoryRepository;
+        this.categoryMapper = categoryMapper;
 
     }
 
 
     @Override
-    public CategoryResponseDTO createCategory(CategoryRequestDTO farmRequestDTO) {
-        Category farm = farmMapper.toEntity(farmRequestDTO);
-        Category savedCategory = farmRepository.save(farm);
-        return farmMapper.toResponseDto(savedCategory);
+    public CategoryResponseDTO createCategory(CategoryRequestDTO categoryRequestDTO) {
+        Category category = categoryMapper.toEntity(categoryRequestDTO);
+        Category savedCategory = categoryRepository.save(category);
+        return categoryMapper.toResponseDto(savedCategory);
     }
 
 
     @Override
-    public CategoryResponseDTO getCategoryById(Long farmId) {
-        Category farm = farmRepository.findById(farmId)
-                .orElseThrow(() -> new IllegalArgumentException("Category not found with ID: " + farmId));
-        return farmMapper.toResponseDto(farm);
+    public CategoryResponseDTO getCategoryById(Long categoryId) {
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new IllegalArgumentException("Category not found with ID: " + categoryId));
+        return categoryMapper.toResponseDto(category);
     }
 
     @Override
-    public CategoryResponseDTO updateCategory(Long id, CategoryRequestDTO farmRequestDTO) {
-        Category existingCategory = farmRepository.findById(id)
+    public CategoryResponseDTO updateCategory(Long id, CategoryRequestDTO categoryRequestDTO) {
+        Category existingCategory = categoryRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Category not found with ID: " + id));
-        existingCategory.setName(farmRequestDTO.name());
+        existingCategory.setName(categoryRequestDTO.name());
 
-        Category updatedCategory = farmRepository.save(existingCategory);
-        return farmMapper.toResponseDto(updatedCategory);
+        Category updatedCategory = categoryRepository.save(existingCategory);
+        return categoryMapper.toResponseDto(updatedCategory);
     }
 
     @Override
     public List<CategoryResponseDTO> getAllCategorys() {
-        List<Category> farms = (List<Category>) farmRepository.findAll();
-        return farms.stream()
-                .map(farmMapper::toResponseDto)
+        List<Category> categorys = (List<Category>) categoryRepository.findAll();
+        return categorys.stream()
+                .map(categoryMapper::toResponseDto)
                 .collect(Collectors.toList());
     }
 
 
     @Override
-    public void deleteCategory(Long farmId) {
-        if (!farmRepository.existsById(farmId)) {
-            throw new IllegalArgumentException("Category not found with ID: " + farmId);
+    public void deleteCategory(Long categoryId) {
+        if (!categoryRepository.existsById(categoryId)) {
+            throw new IllegalArgumentException("Category not found with ID: " + categoryId);
         }
-        farmRepository.deleteById(farmId);
+        categoryRepository.deleteById(categoryId);
     }
 
 
 //    @Override
 //    public List<CategoryResponseDTO> searchCategorys(String name, String location, Double minArea) {
 //        Specification<Category> spec = CategorySpecification.searchCategorys(name, location, minArea);
-//        List<Category> farms = farmRepository.findAll(spec);
-//        return farms.stream()
-//                .map(farmMapper::toResponseDto)
+//        List<Category> categorys = categoryRepository.findAll(spec);
+//        return categorys.stream()
+//                .map(categoryMapper::toResponseDto)
 //                .collect(Collectors.toList());
 //    }
 
@@ -93,8 +93,8 @@ public class CategoryServiceImp implements ICategoryService {
         Sort sort = direction.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<Category> farmPage = farmRepository.findAll(pageable);
-        return farmPage.map(farmMapper::toResponseDto);
+        Page<Category> categoryPage = categoryRepository.findAll(pageable);
+        return categoryPage.map(categoryMapper::toResponseDto);
     }
 
 

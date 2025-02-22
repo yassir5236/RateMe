@@ -10,6 +10,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -40,7 +43,14 @@ public class User {
     private String profilePicture;
     private String bio;
 
-    private String role="ADMIN";
+    private String role="USER";
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Place> places = new ArrayList<>();
+
+
+
+
 
 
 }

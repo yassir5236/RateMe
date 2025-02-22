@@ -5,10 +5,16 @@
     import com.yassir.RateMe.Model.Entity.Place;
     import org.mapstruct.Mapper;
 
+    import java.util.List;
+
     @Mapper(componentModel = "spring")
     public interface IPlaceMapper {
         Place toEntity (PlaceRequestDTO PlaceRequestDTO);
         PlaceResponseDTO toResponseDto (Place place);
+        // Add mapping for photos if needed
+        default List<String> mapPhotos(List<String> photos) {
+            return photos;
+        }
     }
 
 

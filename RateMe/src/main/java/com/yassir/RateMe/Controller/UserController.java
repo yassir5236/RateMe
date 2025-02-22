@@ -2,7 +2,9 @@ package com.yassir.RateMe.Controller;
 
 
 
+import com.yassir.RateMe.Dto.User.UserResponseDTO;
 import com.yassir.RateMe.Dto.UserRequestDto;
+import com.yassir.RateMe.Mapper.IUserMapper;
 import com.yassir.RateMe.Model.Entity.User;
 import com.yassir.RateMe.Model.Enum.Role;
 import com.yassir.RateMe.Security.JwtTokenProvider;
@@ -26,11 +28,13 @@ public class UserController {
 
     private final UserService userService;
     private final JwtTokenProvider jwtTokenProvider;
+    private final IUserMapper userMapper;
 
     @Autowired
-    public UserController(UserService userService, JwtTokenProvider jwtTokenProvider) {
+    public UserController(UserService userService, JwtTokenProvider jwtTokenProvider , IUserMapper userMapper) {
         this.userService = userService;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.userMapper = userMapper;
     }
 
     @GetMapping("/test")
@@ -54,12 +58,21 @@ public class UserController {
     }
 
 
+//    @GetMapping("/user/me")
+//    public ResponseEntity<User> getCurrentUser(@RequestHeader("Authorization") String token) {
+//        String username = jwtTokenProvider.extractUserName(token.substring(7)); // Retirer "Bearer "
+//        Optional<User> user = userService.getUserByUsername(username);
+//
+//        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+//    }
+
     @GetMapping("/user/me")
-    public ResponseEntity<User> getCurrentUser(@RequestHeader("Authorization") String token) {
+    public UserResponseDTO getCurrentUser(@RequestHeader("Authorization") String token) {
         String username = jwtTokenProvider.extractUserName(token.substring(7)); // Retirer "Bearer "
         Optional<User> user = userService.getUserByUsername(username);
 
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return userMapper.toResponseDto(user.get());
+//        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 
@@ -68,7 +81,7 @@ public class UserController {
 
 
     @PutMapping(value = "/user/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<User> updateUser(
+    public UserResponseDTO updateUser(
             @RequestHeader("Authorization") String token,
             @RequestPart("location") String location,
             @RequestPart("bio") String bio,
@@ -76,7 +89,8 @@ public class UserController {
     ) {
         String username = jwtTokenProvider.extractUserName(token.substring(7));
         User user = userService.updateUserProfile(username, location, bio, profilePicture);
-        return ResponseEntity.ok(user);
+        return userMapper.toResponseDto(user);
+
     }
 
 

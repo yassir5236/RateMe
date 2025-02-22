@@ -4,10 +4,6 @@ import java.time.LocalDate;
 
 public record EmbeddedCategoryDTO(
          Long id,
-
-         String name,
-         String location,
-         double totalArea ,
-         LocalDate created
+         String name
 ) {
 }
