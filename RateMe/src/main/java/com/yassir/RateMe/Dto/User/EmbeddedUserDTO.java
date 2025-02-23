@@ -16,4 +16,8 @@ public record EmbeddedUserDTO(
         String role
 
 ) {
+    public EmbeddedUserDTO(Long id, String username, String profilePicture) {
+        this(id, username, null, null, null, profilePicture, null, null);
+    }
 }
+

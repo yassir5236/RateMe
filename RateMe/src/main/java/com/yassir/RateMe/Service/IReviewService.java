@@ -11,6 +11,9 @@ public interface IReviewService {
 
     ReviewResponseDTO getReviewById(Long reviewId);
 
+    List<ReviewResponseDTO> getReviewsByPlaceId(Long placeId);
+
+
     ReviewResponseDTO updateReview(Long id, ReviewRequestDTO reviewRequestDTO);
 
     List<ReviewResponseDTO> getAllReviews();

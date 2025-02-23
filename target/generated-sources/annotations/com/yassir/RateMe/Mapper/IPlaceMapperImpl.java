@@ -9,7 +9,6 @@ import com.yassir.RateMe.Model.Entity.Category;
 import com.yassir.RateMe.Model.Entity.Image;
 import com.yassir.RateMe.Model.Entity.Place;
 import com.yassir.RateMe.Model.Entity.User;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-22T13:37:59+0100",
+    date = "2025-02-23T10:19:04+0000",
     comments = "version: 1.6.2, compiler: javac, environment: Java 23.0.1 (Oracle Corporation)"
 )
 @Component
@@ -140,11 +139,7 @@ public class IPlaceMapperImpl implements IPlaceMapper {
         id = (long) category.getId();
         name = category.getName();
 
-        String location = null;
-        double totalArea = 0.0d;
-        LocalDate created = null;
-
-        EmbeddedCategoryDTO embeddedCategoryDTO = new EmbeddedCategoryDTO( id, name, location, totalArea, created );
+        EmbeddedCategoryDTO embeddedCategoryDTO = new EmbeddedCategoryDTO( id, name );
 
         return embeddedCategoryDTO;
     }

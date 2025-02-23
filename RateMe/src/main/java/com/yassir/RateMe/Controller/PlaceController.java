@@ -36,7 +36,7 @@ public class PlaceController {
             @RequestPart("place") String placeJson,
             @RequestPart("images") List<MultipartFile> images
     ) throws JsonProcessingException {
-        System.out.println(placeJson);
+//        System.out.println(placeJson);
         PlaceRequestDTO placeRequest = objectMapper.readValue(placeJson, PlaceRequestDTO.class);
         PlaceResponseDTO createdPlace = placeService.createPlace(placeRequest, images);
         return new ResponseEntity<>(createdPlace, HttpStatus.CREATED);
@@ -77,7 +77,7 @@ public class PlaceController {
     @GetMapping
     public ResponseEntity<List<PlaceResponseDTO>> getAllPlaces() {
         List<PlaceResponseDTO> places = placeService.getAllPlaces();
-        System.out.println(places);
+//        System.out.println(places);
         return ResponseEntity.ok(places);
     }
 

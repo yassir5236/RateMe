@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record EmbeddedPlaceDTO(
-         int id,
+         Long id,
 
          String name,
          String description,
@@ -18,4 +18,7 @@ public record EmbeddedPlaceDTO(
          Double averageRating
 
 ) {
+    public EmbeddedPlaceDTO(Long id, String name) {
+        this(id, name, null, null, null, null, null, null);
+    }
 }

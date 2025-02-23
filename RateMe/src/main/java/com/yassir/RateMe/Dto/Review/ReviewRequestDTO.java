@@ -10,7 +10,9 @@ public record ReviewRequestDTO(
 
         Double rating,
         String comment,
-        LocalDateTime createdDate
+        LocalDateTime createdDate,
+        Long userId,
+        Long placeId
 
 
 ) {
