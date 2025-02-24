@@ -95,6 +95,16 @@ public class ReviewServiceImp implements IReviewService {
         Review existingReview = reviewRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Review not found with ID: " + id));
 //        existingReview.setName(reviewRequestDTO.name());
+        User ExistingUser = UserRepository.findById(reviewRequestDTO.userId())
+                .orElseThrow(() -> new RuntimeException("User Not Found"));
+
+        Place ExistingPlace = placeRepository.findById(reviewRequestDTO.placeId())
+                .orElseThrow(() -> new RuntimeException("place not found"));
+        existingReview.setUser(ExistingUser);
+        existingReview.setPlace(ExistingPlace);
+        existingReview.setComment(reviewRequestDTO.comment());
+        existingReview.setCreatedDate(reviewRequestDTO.createdDate());
+        existingReview.setRating(reviewRequestDTO.rating());
 
         Review updatedReview = reviewRepository.save(existingReview);
         return reviewMapper.toResponseDto(updatedReview);
