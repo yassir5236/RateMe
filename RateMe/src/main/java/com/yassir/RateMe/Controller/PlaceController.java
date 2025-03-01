@@ -49,13 +49,6 @@ public class PlaceController {
         return ResponseEntity.ok(place);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<PlaceResponseDTO> updatePlace(
-//            @PathVariable Long id,
-//            @Valid @RequestBody PlaceRequestDTO placeRequestDTO) {
-//        PlaceResponseDTO updatedPlace = placeService.updatePlace(id, placeRequestDTO);
-//        return ResponseEntity.ok(updatedPlace);
-//    }
 
 
     @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

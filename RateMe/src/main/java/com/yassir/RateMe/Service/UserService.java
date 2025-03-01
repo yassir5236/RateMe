@@ -75,6 +75,8 @@ public class UserService {
         userRepository.delete(user);
     }
 
+
+
     public String verify(User user) {
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -83,10 +85,11 @@ public class UserService {
                 return jwtTokenProvider.generateToken(user.getUsername(), user.getUsername());
             }
         } catch (Exception e) {
-            return "Authentication failed: " + e.getMessage();
+            return "Fails";  // ✅ Toujours retourner "Fails" en cas d'échec
         }
         return "Fails";
     }
+
 
 
     public User updateUserProfile(String username, String location, String bio, MultipartFile profilePicture) {
@@ -102,6 +105,11 @@ public class UserService {
         }
 
         return userRepository.save(user);
+    }
+
+
+    public Optional<User> getUserById(Long userId) {
+        return userRepository.findById(userId);
     }
 
 }

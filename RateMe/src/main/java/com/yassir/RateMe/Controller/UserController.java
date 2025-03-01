@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/public")
-@CrossOrigin(origins = "http://localhost:4200") // Permet la connexion avec Angular
+@CrossOrigin(origins = "http://localhost:4200")
 
 public class UserController {
 
@@ -52,9 +52,14 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody User user) {
         String token = userService.verify(user);
         if ("Fails".equals(token)) {
+            System.out.println("here1");
+
             return ResponseEntity.status(401).body("Authentication failed");
         }
+        System.out.println("here2");
+
         return ResponseEntity.ok().body(Map.of("token", token));
+
     }
 
 
@@ -93,6 +98,16 @@ public class UserController {
 
     }
 
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long userId) {
+        Optional<User> user = userService.getUserById(userId);
+        if (user.isPresent()) {
+            return ResponseEntity.ok(userMapper.toResponseDto(user.get()));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
 
