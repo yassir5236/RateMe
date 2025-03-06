@@ -52,8 +52,12 @@ public class Place {
     private List<Review> reviews = new ArrayList<>();
 
 
-//    @OneToMany(mappedBy = "", cascade = CascadeType.ALL)
-//    private List<Recommendation> recommendations = new ArrayList<>();
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+    private List<Share> shares = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+    List<Like> likes = new ArrayList<>();
 
 }
 

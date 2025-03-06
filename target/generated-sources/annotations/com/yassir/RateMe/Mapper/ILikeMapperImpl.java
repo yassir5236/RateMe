@@ -1,63 +1,52 @@
 package com.yassir.RateMe.Mapper;
 
+import com.yassir.RateMe.Dto.Like.LikeRequestDTO;
+import com.yassir.RateMe.Dto.Like.LikeResponseDTO;
 import com.yassir.RateMe.Dto.Place.EmbeddedPlaceDTO;
-import com.yassir.RateMe.Dto.Review.ReviewRequestDTO;
-import com.yassir.RateMe.Dto.Review.ReviewResponseDTO;
 import com.yassir.RateMe.Dto.User.EmbeddedUserDTO;
+import com.yassir.RateMe.Model.Entity.Like;
 import com.yassir.RateMe.Model.Entity.Place;
-import com.yassir.RateMe.Model.Entity.Review;
 import com.yassir.RateMe.Model.Entity.User;
-import java.time.LocalDateTime;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-06T11:04:21+0000",
+    date = "2025-03-06T11:04:22+0000",
     comments = "version: 1.6.2, compiler: javac, environment: Java 23.0.1 (Oracle Corporation)"
 )
 @Component
-public class IReviewMapperImpl implements IReviewMapper {
+public class ILikeMapperImpl implements ILikeMapper {
 
     @Override
-    public Review toEntity(ReviewRequestDTO ReviewRequestDTO) {
-        if ( ReviewRequestDTO == null ) {
+    public Like toEntity(LikeRequestDTO LikeRequestDTO) {
+        if ( LikeRequestDTO == null ) {
             return null;
         }
 
-        Review review = new Review();
+        Like like = new Like();
 
-        review.setRating( ReviewRequestDTO.rating() );
-        review.setComment( ReviewRequestDTO.comment() );
-        review.setCreatedDate( ReviewRequestDTO.createdDate() );
-
-        return review;
+        return like;
     }
 
     @Override
-    public ReviewResponseDTO toResponseDto(Review review) {
-        if ( review == null ) {
+    public LikeResponseDTO toResponseDto(Like like) {
+        if ( like == null ) {
             return null;
         }
 
         Long id = null;
-        Double rating = null;
-        String comment = null;
-        LocalDateTime createdDate = null;
         EmbeddedUserDTO user = null;
         EmbeddedPlaceDTO place = null;
 
-        id = review.getId();
-        rating = review.getRating();
-        comment = review.getComment();
-        createdDate = review.getCreatedDate();
-        user = userToEmbeddedUserDTO( review.getUser() );
-        place = placeToEmbeddedPlaceDTO( review.getPlace() );
+        id = like.getId();
+        user = userToEmbeddedUserDTO( like.getUser() );
+        place = placeToEmbeddedPlaceDTO( like.getPlace() );
 
-        ReviewResponseDTO reviewResponseDTO = new ReviewResponseDTO( id, rating, comment, createdDate, user, place );
+        LikeResponseDTO likeResponseDTO = new LikeResponseDTO( id, user, place );
 
-        return reviewResponseDTO;
+        return likeResponseDTO;
     }
 
     protected EmbeddedUserDTO userToEmbeddedUserDTO(User user) {

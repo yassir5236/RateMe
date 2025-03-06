@@ -63,14 +63,6 @@ public class UserController {
     }
 
 
-//    @GetMapping("/user/me")
-//    public ResponseEntity<User> getCurrentUser(@RequestHeader("Authorization") String token) {
-//        String username = jwtTokenProvider.extractUserName(token.substring(7)); // Retirer "Bearer "
-//        Optional<User> user = userService.getUserByUsername(username);
-//
-//        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-//    }
-
     @GetMapping("/user/me")
     public UserResponseDTO getCurrentUser(@RequestHeader("Authorization") String token) {
         String username = jwtTokenProvider.extractUserName(token.substring(7)); // Retirer "Bearer "
@@ -79,10 +71,6 @@ public class UserController {
         return userMapper.toResponseDto(user.get());
 //        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
-
-
-
 
 
     @PutMapping(value = "/user/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

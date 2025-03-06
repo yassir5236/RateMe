@@ -48,6 +48,8 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Place> places = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
+    private List<Like> likes = new ArrayList<>();
 
 
 
