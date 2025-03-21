@@ -25,4 +25,11 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
     List<Object[]> countPlacesByDay(@Param("startDate") LocalDate startDate,
                                     @Param("endDate") LocalDate endDate);
 
+
+    List<Place> findAllByOrderByCreatedAtDesc();
+    @Query("SELECT p FROM Place p ORDER BY p.id DESC")
+    List<Place> findLatestPlaces();
+
+
+
 }

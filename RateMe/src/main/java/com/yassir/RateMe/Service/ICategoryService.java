@@ -18,9 +18,5 @@ public interface ICategoryService {
 
     void deleteCategory(Long categoryId);
 
-//    List<CategoryResponseDTO> searchCategorys(String name, String location, Double minArea);
-
-    Page<CategoryResponseDTO> getCategorysPaginatedAndSorted(int page, int size, String sortBy, String direction);
-
 
 }

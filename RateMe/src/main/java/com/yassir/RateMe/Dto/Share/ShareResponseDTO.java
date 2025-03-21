@@ -11,7 +11,6 @@ public record ShareResponseDTO(
         Long id,
         String title,
         EmbeddedUserDTO user,
-//        EmbeddedPlaceDTO place
         PlaceResponseDTO place
 
 ) {

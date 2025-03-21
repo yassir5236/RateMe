@@ -12,14 +12,12 @@ import java.util.List;
 
 public record PlaceResponseDTO(
         Long id,
-
         String name,
         String description,
         List<ImageResponseDTO> images,
         String address,
         Double latitude,
         Double longitude,
-        Double averageRating,
         EmbeddedUserDTO user,
         EmbeddedCategoryDTO category
 ) {

@@ -14,11 +14,11 @@ public record EmbeddedPlaceDTO(
          List<String> photos,
          String address,
          Double latitude,
-         Double longitude,
-         Double averageRating
+         Double longitude
+
 
 ) {
     public EmbeddedPlaceDTO(Long id, String name) {
-        this(id, name, null, null, null, null, null, null);
+        this(id, name, null, null, null, null, null);
     }
 }

@@ -58,39 +58,4 @@ public class CategoryController {
 
 
 
-
-
-    @GetMapping("/paginated")
-    public ResponseEntity<Page<CategoryResponseDTO>> getCategorysPaginatedAndSorted(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String direction) {
-        Page<CategoryResponseDTO> categorys = categoryService.getCategorysPaginatedAndSorted(page, size, sortBy, direction);
-        return ResponseEntity.ok(categorys);
-    }
-
-
-
-    //    @GetMapping("/search")
-//    public ResponseEntity<List<CategoryResponseDTO>> searchCategorys(
-//            @RequestParam(required = false) String name,
-//            @RequestParam(required = false) String location,
-//            @RequestParam(required = false) Double minArea) {
-//        List<CategoryResponseDTO> categorys = categoryService.searchCategorys(name, location, minArea);
-//        return ResponseEntity.ok(categorys);
-//    }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

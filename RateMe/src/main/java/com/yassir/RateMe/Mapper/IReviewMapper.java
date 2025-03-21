@@ -14,12 +14,5 @@ public interface IReviewMapper {
 
 }
 
-//@Mapper(componentModel = "spring")
-//public interface IReviewMapper {
-//        Review toEntity(ReviewRequestDTO reviewRequestDTO);
-//
-//        @Mapping(target = "place", expression = "java(new EmbeddedPlaceDTO(review.getPlace().getId(), review.getPlace().getName()))")
-//        @Mapping(target = "user", expression = "java(new EmbeddedUserDTO(review.getUser().getId(), review.getUser().getUsername()))")
-//        ReviewResponseDTO toResponseDto(Review review);
-//}
+
 

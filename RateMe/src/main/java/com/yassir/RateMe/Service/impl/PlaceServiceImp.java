@@ -42,16 +42,7 @@ public class PlaceServiceImp implements IPlaceService {
     }
 
 
-//    @Override
-//    public PlaceResponseDTO createPlace(PlaceRequestDTO placeRequestDTO) {
-//        Place place = placeMapper.toEntity(placeRequestDTO);
-//
-//        Category category = categoryRepository.findById(placeRequestDTO.categoryId())
-//                .orElseThrow(() -> new IllegalArgumentException("Category not found"));
-//        place.setCategory(category);
-//        Place savedPlace = placeRepository.save(place);
-//        return placeMapper.toResponseDto(savedPlace);
-//    }
+
 
     public PlaceResponseDTO createPlace(PlaceRequestDTO placeRequest, List<MultipartFile> images) {
         Place place = placeMapper.toEntity(placeRequest);
@@ -75,7 +66,7 @@ public class PlaceServiceImp implements IPlaceService {
 
 
     public PlaceResponseDTO getPlaceById(Long placeId) {
-        Place place = placeRepository.findByIdWithCategory(placeId) // Utiliser la nouvelle méthode
+        Place place = placeRepository.findByIdWithCategory(placeId)
                 .orElseThrow(() -> new IllegalArgumentException("Place non trouvée"));
         return placeMapper.toResponseDto(place);
     }
@@ -85,44 +76,40 @@ public class PlaceServiceImp implements IPlaceService {
 
     @Override
     public PlaceResponseDTO updatePlace(Long id, PlaceRequestDTO placeRequestDTO, List<MultipartFile> images) {
-        // Récupérer la place existante
         Place existingPlace = placeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Place not found with ID: " + id));
 
-        // Mettre à jour les champs de base
         existingPlace.setName(placeRequestDTO.name());
         existingPlace.setDescription(placeRequestDTO.description());
         existingPlace.setAddress(placeRequestDTO.address());
         existingPlace.setLatitude(placeRequestDTO.latitude());
         existingPlace.setLongitude(placeRequestDTO.longitude());
-        existingPlace.setAverageRating(placeRequestDTO.averageRating());
 
-        // Mettre à jour la catégorie
         Category category = categoryRepository.findById(placeRequestDTO.categoryId())
                 .orElseThrow(() -> new IllegalArgumentException("Category not found"));
         existingPlace.setCategory(category);
 
-        // Mettre à jour les images (si fournies)
         if (images != null && !images.isEmpty()) {
             List<Image> newImages = images.stream()
                     .map(image -> fileUploader.upload(image))
                     .map(Image::of)
                     .peek(image -> image.setPlace(existingPlace))
                     .collect(Collectors.toList());
-            existingPlace.getImages().addAll(newImages); // Ou remplacer les anciennes
+            existingPlace.getImages().addAll(newImages);
         }
 
-        // Sauvegarder
         return placeMapper.toResponseDto(placeRepository.save(existingPlace));
     }
 
+
     @Override
     public List<PlaceResponseDTO> getAllPlaces() {
-        List<Place> places = (List<Place>) placeRepository.findAll();
+        List<Place> places = placeRepository.findLatestPlaces();
         return places.stream()
                 .map(placeMapper::toResponseDto)
                 .collect(Collectors.toList());
     }
+
 
 
     @Override

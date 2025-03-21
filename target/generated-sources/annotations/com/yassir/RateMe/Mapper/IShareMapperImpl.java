@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-06T11:04:22+0000",
+    date = "2025-03-14T11:19:48+0000",
     comments = "version: 1.6.2, compiler: javac, environment: Java 23.0.1 (Oracle Corporation)"
 )
 @Component
@@ -121,7 +121,7 @@ public class IShareMapperImpl implements IShareMapper {
         Long id = null;
         String name = null;
 
-        id = (long) category.getId();
+        id = category.getId();
         name = category.getName();
 
         EmbeddedCategoryDTO embeddedCategoryDTO = new EmbeddedCategoryDTO( id, name );
@@ -141,7 +141,6 @@ public class IShareMapperImpl implements IShareMapper {
         String address = null;
         Double latitude = null;
         Double longitude = null;
-        Double averageRating = null;
         EmbeddedUserDTO user = null;
         EmbeddedCategoryDTO category = null;
 
@@ -152,11 +151,10 @@ public class IShareMapperImpl implements IShareMapper {
         address = place.getAddress();
         latitude = place.getLatitude();
         longitude = place.getLongitude();
-        averageRating = place.getAverageRating();
         user = userToEmbeddedUserDTO( place.getUser() );
         category = categoryToEmbeddedCategoryDTO( place.getCategory() );
 
-        PlaceResponseDTO placeResponseDTO = new PlaceResponseDTO( id, name, description, images, address, latitude, longitude, averageRating, user, category );
+        PlaceResponseDTO placeResponseDTO = new PlaceResponseDTO( id, name, description, images, address, latitude, longitude, user, category );
 
         return placeResponseDTO;
     }

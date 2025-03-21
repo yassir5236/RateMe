@@ -12,18 +12,12 @@ import java.util.List;
 
 public record PlaceRequestDTO(
 
-
-
         String name,
         String description,
-//        List<MultipartFile> photos,
         String address,
         Double latitude,
         Double longitude,
-        Double averageRating,
         Long categoryId,
         Long userId
-
-
 ) {
 }

@@ -98,9 +98,9 @@ public class ShareServiceImp implements IShareService {
 
 
     public List<ShareResponseDTO> getSharesByUserId(Long userId) {
-        List<Share> shares = shareRepository.findByUserId(userId); // Ensure this returns List<Share>
+        List<Share> shares = shareRepository.findByUserId(userId);
         return shares.stream()
-                .map(shareMapper::toResponseDto) // Use method reference
+                .map(shareMapper::toResponseDto)
                 .collect(Collectors.toList());
     }
 

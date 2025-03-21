@@ -7,11 +7,6 @@ import com.yassir.RateMe.Model.Entity.Category;
 import com.yassir.RateMe.Repository.CategoryRepository;
 import com.yassir.RateMe.Service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 
@@ -37,6 +32,12 @@ public class CategoryServiceImp implements ICategoryService {
 
     @Override
     public CategoryResponseDTO createCategory(CategoryRequestDTO categoryRequestDTO) {
+        if (categoryRequestDTO.name() == null || categoryRequestDTO.name().trim().isEmpty()) {
+            throw new IllegalArgumentException("Category name cannot be empty");
+        }
+        if (categoryRequestDTO.name().length() > 255) {
+            throw new IllegalArgumentException("Category name is too long");
+        }
         Category category = categoryMapper.toEntity(categoryRequestDTO);
         Category savedCategory = categoryRepository.save(category);
         return categoryMapper.toResponseDto(savedCategory);
@@ -45,6 +46,9 @@ public class CategoryServiceImp implements ICategoryService {
 
     @Override
     public CategoryResponseDTO getCategoryById(Long categoryId) {
+        if (categoryId == null || categoryId < 0) {
+            throw new IllegalArgumentException("Invalid category ID: " + categoryId);
+        }
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new IllegalArgumentException("Category not found with ID: " + categoryId));
         return categoryMapper.toResponseDto(category);
@@ -52,6 +56,9 @@ public class CategoryServiceImp implements ICategoryService {
 
     @Override
     public CategoryResponseDTO updateCategory(Long id, CategoryRequestDTO categoryRequestDTO) {
+        if (categoryRequestDTO.name() == null || categoryRequestDTO.name().trim().isEmpty()) {
+            throw new IllegalArgumentException("Category name cannot be empty");
+        }
         Category existingCategory = categoryRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Category not found with ID: " + id));
         existingCategory.setName(categoryRequestDTO.name());
@@ -78,24 +85,8 @@ public class CategoryServiceImp implements ICategoryService {
     }
 
 
-//    @Override
-//    public List<CategoryResponseDTO> searchCategorys(String name, String location, Double minArea) {
-//        Specification<Category> spec = CategorySpecification.searchCategorys(name, location, minArea);
-//        List<Category> categorys = categoryRepository.findAll(spec);
-//        return categorys.stream()
-//                .map(categoryMapper::toResponseDto)
-//                .collect(Collectors.toList());
-//    }
 
 
-    @Override
-    public Page<CategoryResponseDTO> getCategorysPaginatedAndSorted(int page, int size, String sortBy, String direction) {
-        Sort sort = direction.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-        Pageable pageable = PageRequest.of(page, size, sort);
-
-        Page<Category> categoryPage = categoryRepository.findAll(pageable);
-        return categoryPage.map(categoryMapper::toResponseDto);
-    }
 
 
 

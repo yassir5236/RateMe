@@ -30,11 +30,10 @@ public class Place {
     private String address;
     private Double latitude;
     private Double longitude;
-    private Double averageRating;
 
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
-    private LocalDate createdAt; // Add this field
+    private LocalDate createdAt;
 
     @ManyToOne
     @JoinColumn(name = "Category_id")

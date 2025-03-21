@@ -11,7 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import com.fasterxml.jackson.databind.ObjectMapper; // Import ObjectMapper
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
 public class PlaceController {
 
     private final IPlaceService placeService;
-    private final ObjectMapper objectMapper; // Declare ObjectMapper
+    private final ObjectMapper objectMapper;
 
     @Autowired
     public PlaceController(IPlaceService placeService , ObjectMapper objectMapper) {
@@ -36,7 +36,6 @@ public class PlaceController {
             @RequestPart("place") String placeJson,
             @RequestPart("images") List<MultipartFile> images
     ) throws JsonProcessingException {
-//        System.out.println(placeJson);
         PlaceRequestDTO placeRequest = objectMapper.readValue(placeJson, PlaceRequestDTO.class);
         PlaceResponseDTO createdPlace = placeService.createPlace(placeRequest, images);
         return new ResponseEntity<>(createdPlace, HttpStatus.CREATED);
@@ -70,7 +69,6 @@ public class PlaceController {
     @GetMapping
     public ResponseEntity<List<PlaceResponseDTO>> getAllPlaces() {
         List<PlaceResponseDTO> places = placeService.getAllPlaces();
-//        System.out.println(places);
         return ResponseEntity.ok(places);
     }
 

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-06T11:04:22+0000",
+    date = "2025-03-14T11:19:47+0000",
     comments = "version: 1.6.2, compiler: javac, environment: Java 23.0.1 (Oracle Corporation)"
 )
 @Component
@@ -88,7 +88,6 @@ public class ILikeMapperImpl implements ILikeMapper {
         String address = null;
         Double latitude = null;
         Double longitude = null;
-        Double averageRating = null;
 
         id = place.getId();
         name = place.getName();
@@ -96,11 +95,10 @@ public class ILikeMapperImpl implements ILikeMapper {
         address = place.getAddress();
         latitude = place.getLatitude();
         longitude = place.getLongitude();
-        averageRating = place.getAverageRating();
 
         List<String> photos = null;
 
-        EmbeddedPlaceDTO embeddedPlaceDTO = new EmbeddedPlaceDTO( id, name, description, photos, address, latitude, longitude, averageRating );
+        EmbeddedPlaceDTO embeddedPlaceDTO = new EmbeddedPlaceDTO( id, name, description, photos, address, latitude, longitude );
 
         return embeddedPlaceDTO;
     }

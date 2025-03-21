@@ -12,7 +12,7 @@ public interface ILikeService {
 
     public LikeResponseDTO toggleLike(LikeRequestDTO likeRequest) ;
 
-    List<Long> getLikedPlacesByUser(Long userId); // Retourne une liste des ids des places likées
+    List<Long> getLikedPlacesByUser(Long userId);
 
     public Map<Long, Long> getLikesCountForEachPlace() ;
 

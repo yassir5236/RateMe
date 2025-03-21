@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-06T11:04:21+0000",
+    date = "2025-03-21T12:42:56+0000",
     comments = "version: 1.6.2, compiler: javac, environment: Java 23.0.1 (Oracle Corporation)"
 )
 @Component
@@ -99,7 +99,6 @@ public class IReviewMapperImpl implements IReviewMapper {
         String address = null;
         Double latitude = null;
         Double longitude = null;
-        Double averageRating = null;
 
         id = place.getId();
         name = place.getName();
@@ -107,11 +106,10 @@ public class IReviewMapperImpl implements IReviewMapper {
         address = place.getAddress();
         latitude = place.getLatitude();
         longitude = place.getLongitude();
-        averageRating = place.getAverageRating();
 
         List<String> photos = null;
 
-        EmbeddedPlaceDTO embeddedPlaceDTO = new EmbeddedPlaceDTO( id, name, description, photos, address, latitude, longitude, averageRating );
+        EmbeddedPlaceDTO embeddedPlaceDTO = new EmbeddedPlaceDTO( id, name, description, photos, address, latitude, longitude );
 
         return embeddedPlaceDTO;
     }

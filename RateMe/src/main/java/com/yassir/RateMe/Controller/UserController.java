@@ -65,11 +65,10 @@ public class UserController {
 
     @GetMapping("/user/me")
     public UserResponseDTO getCurrentUser(@RequestHeader("Authorization") String token) {
-        String username = jwtTokenProvider.extractUserName(token.substring(7)); // Retirer "Bearer "
+        String username = jwtTokenProvider.extractUserName(token.substring(7));
         Optional<User> user = userService.getUserByUsername(username);
 
         return userMapper.toResponseDto(user.get());
-//        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 

@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: ${DB_URL_1}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SERVER_PORT: ${APP_PORT}
+    depends_on:
+      - postgres
+    volumes:
+      - maven-repo:/root/.m2
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5433"
+    command: ["postgres", "-p", "5433"]
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'yassir@gmail.com'
+      PGADMIN_DEFAULT_PASSWORD: 'admin'
+      PGADMIN_LISTEN_PORT: '5051'
+    ports:
+      - "5051:5051"
+    depends_on:
+      - postgres
+
+volumes:
+  db_data:
+  maven-repo:
