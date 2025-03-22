@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - main  # Exécuter uniquement sur main
+      - main
 
 jobs:
   build-and-push:
