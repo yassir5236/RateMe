@@ -10,10 +10,7 @@ import java.time.LocalDate;
 
 @Builder
 public record CategoryRequestDTO(
-
-        @NotBlank(message = "Farm name cannot be empty")
+        @NotBlank(message = "Category name cannot be empty")
         String name
-
-
 ) {
 }

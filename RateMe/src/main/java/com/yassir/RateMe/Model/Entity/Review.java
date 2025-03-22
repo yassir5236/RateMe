@@ -20,7 +20,6 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank()
     private Double rating;
     private String comment;
     private LocalDateTime createdDate;

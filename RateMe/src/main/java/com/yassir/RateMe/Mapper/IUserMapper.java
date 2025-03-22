@@ -11,7 +11,6 @@
     public interface IUserMapper {
         User toEntity (UserRequestDTO UserRequestDTO);
         UserResponseDTO toResponseDto (User user);
-        // Add mapping for photos if needed
         default List<String> mapPhotos(List<String> photos) {
             return photos;
         }

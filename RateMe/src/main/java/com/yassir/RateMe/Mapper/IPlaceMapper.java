@@ -11,7 +11,6 @@
     public interface IPlaceMapper {
         Place toEntity (PlaceRequestDTO PlaceRequestDTO);
         PlaceResponseDTO toResponseDto (Place place);
-        // Add mapping for photos if needed
         default List<String> mapPhotos(List<String> photos) {
             return photos;
         }
